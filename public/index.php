@@ -1,6 +1,7 @@
 <?php
+ session_start();
      if (isset($_POST['submit'])){
-         session_start(); //start a session
+
          $password = htmlentities(($_POST['password']));
          $logindatetime = date("Y/m/d");
 
@@ -10,7 +11,9 @@
         $_SESSION['password'] = htmlentities($hashed_password);
         $_SESSION['logintime'] = $logindatetime;
         $_SESSION['timer'] = time();
-        
+
+
+
 
         header('Location: private.php');
      };
@@ -34,5 +37,17 @@
         <br>
         <input type="submit" name="submit" value="submit" />
      </form>
+     <?php
+        if (isset($_SESSION['name'])){
+            echo  '<a href="private.php">private</a>';
+            echo '<br>';
+            echo '<a href="secret.php">secret</a>';
+
+        };
+        var_dump($_SESSION);
+
+     ?>
+
+
 </body>
 </html>

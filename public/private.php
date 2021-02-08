@@ -18,6 +18,23 @@
 
 <h1>Login as <?php echo $name; ?> at <?php echo $time; ?></h1>
 <h2>has login in for <?php echo $timeSinceLogin ?> </h2>
+<?php
+        if (isset($_SESSION['name'])){
+            echo  '<a href="private.php">private</a>';
+            echo '<br>';
+            echo '<a href="secret.php">secret</a>';
+
+        };
+
+     ?>
+
+    <?php
+        if ($timeSinceLogin > 180 ) {
+            session_destroy();
+            header('Location: index.php');
+        }
+     ?>
+
 
 </body>
 </html>
