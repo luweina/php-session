@@ -1,5 +1,6 @@
 <?php
      session_start();
+     require_once ('constants.php');
      if (isset($_POST['submit']) && isset($_POST['username']) && $_POST['password']){
 
          require_once ("../db/db.php");
@@ -29,11 +30,11 @@
             foreach ($userRows as $row){
                 if($row["Password"] == $password) {
                     echo '<h1>successfully logged in</h1> ';
-                    $logindatetime = date("Y/m/d");
+                    $logindatetime = date("Y/m/d H:i:s");
 
                     //$hashed_password = password_hash($password, PASSWORD_BCRYPT);
                     $_SESSION['name'] = htmlentities(($_POST['username']));
-                     //$_SESSION ['timestamp'] = $logindatetime;
+                    $_SESSION ['timestamp'] = $logindatetime;
                     //$_SESSION['password'] = htmlentities($hashed_password);
                     $_SESSION['logintime'] = $logindatetime;
                     $_SESSION['timer'] = time();
@@ -75,9 +76,6 @@
                 echo "<h1>Account Locked!!</h1>";
             }
         }
-
-
-       // header('Location: private.php');
      };
 ?>
 
@@ -100,23 +98,13 @@
         <input type="submit" name="submit" value="submit" />
      </form>
      <?php
-
         if (isset($_SESSION['name'])){
-            echo  '<a href="private.php">private</a>';
+            echo PRIVATE_URL;
             echo '<br>';
-            echo '<a href="secret.php">secret</a>';
+            echo SECRET_URL;
             echo '<br>';
-            echo '<a href="logout.php">Logout</a>';
-            echo '<br>';
-
+            echo LOGOUT_URL;
         };
-        if(isset($_SESSION['attempts'])){
-            var_dump($_SESSION['attempts']);
-        }
-        var_dump($_SESSION);
-
      ?>
-
-
 </body>
 </html>
